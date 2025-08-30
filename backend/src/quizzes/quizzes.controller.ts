@@ -12,7 +12,9 @@ export class QuizzesController {
     async postQuiz(
         @Body() quizData: {title: string, questions }
     ): Promise<QuizModel> {
+        
         const {title, questions} = quizData
+        
         return this.quizService.createQuiz({
             title,
             questions
