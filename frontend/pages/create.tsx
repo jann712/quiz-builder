@@ -30,13 +30,13 @@ const QuestionField = ({
                     {
                         fields.map((question, index) => (
                             <div className='border border-slate-200 p-6 px-8 gap-2 flex flex-col'>
-                                
+
                                 <Input placeholder='Type your checkbox option' {...register(`checkbox[${index}].option`)}></Input>
                                 <Button className='bg-red-600 text-white' onClick={() => remove(index)}>Remove checkbox option</Button>
                             </div>
                         ))
                     }
-                    
+
                     <Button onClick={() => append({})}>Add checkbox options</Button>
                 </>
             )}
@@ -55,11 +55,14 @@ export default function Create() {
 
     const onSubmit = async (data) => {
         console.log(data)
-        await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/quizzes` , {
+        await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/quizzes`, {
             method: 'POST',
-            body: data
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            },
         }).then((response) => console.log(response))
-        .catch((error) => console.error(error))
+            .catch((error) => console.error(error))
     }
 
     const { fields, append, remove } = useFieldArray({
@@ -73,7 +76,7 @@ export default function Create() {
                 <label htmlFor="title">Quiz Title</label>
                 <Input type="text" {...register("title")} />
 
-                
+
 
 
                 {fields.map((question, index) => <div className='border border-slate-200 p-6 px-8 flex flex-col gap-3'>
