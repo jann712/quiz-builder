@@ -54,7 +54,8 @@ export default function Create() {
     } = useForm()
 
     const onSubmit = async (data) => {
-        await fetch(`http://localhost:4000/quizzes` , {
+        console.log(data)
+        await fetch(`${process.env.NEXT_PUBLIC_BACKEND_BASE_URL}/quizzes` , {
             method: 'POST',
             body: data
         }).then((response) => console.log(response))
